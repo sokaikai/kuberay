@@ -131,5 +131,16 @@ def build_app(cli_args: Dict[str, str]) -> serve.Application:
     )
 
 
-model = build_app(
-    {"model": os.environ['MODEL_ID'], "tensor-parallel-size": os.environ['TENSOR_PARALLELISM'], "pipeline-parallel-size": os.environ['PIPELINE_PARALLELISM']})
+model = build_app({
+    "model": os.environ['MODEL_ID'],
+    "tensor-parallel-size": os.environ['TENSOR_PARALLELISM'],
+    "pipeline-parallel-size": os.environ['PIPELINE_PARALLELISM'],
+    "max-model-len": os.getenv("MAX_MODEL_LEN", "4096"),
+    "max-num-seqs": os.getenv("MAX_NUM_SEQ", "512"),
+    "max-num-batched-tokens": os.getenv("MAX_NUM_BATCHED_TOKENS", "32768"),
+    "gpu-memory-utilization": os.getenv("GPU_MEMORY_UTILIZATION", "0.9"),
+    "enable-chunked-prefill": os.getenv("ENABLE_CHUNKED_PREFILL", "False"),
+    "quantization": os.getenv("QUANTIZATION", None),
+    "distributed-executor-backend": os.getenv("DISTRIBUTED_EXECUTOR_BACKEND", None)
+})
+
