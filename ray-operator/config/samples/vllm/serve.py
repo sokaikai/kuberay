@@ -26,8 +26,6 @@ logger = logging.getLogger("ray.serve")
 
 app = FastAPI()
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
-
 @serve.deployment(name="VLLMDeployment")
 @serve.ingress(app)
 class VLLMDeployment:
